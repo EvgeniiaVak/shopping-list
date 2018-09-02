@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 public class ShoppingListModel {
     private List<String> unchecked;
-    private List<String> checked;
+    private Set<String> checked;
 }
