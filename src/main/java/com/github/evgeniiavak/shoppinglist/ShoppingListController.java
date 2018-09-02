@@ -1,11 +1,14 @@
 package com.github.evgeniiavak.shoppinglist;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
+@Controller
 @RequestMapping("shopping-list")
 public class ShoppingListController {
 
@@ -25,12 +28,12 @@ public class ShoppingListController {
     @PostMapping("checked")
     public String postChecked(@RequestParam String item) {
         shoppingListService.putChecked(item);
-        return "template";
+        return "redirect:/shopping-list";
     }
 
     @PostMapping("unchecked")
     public String postUnchecked(@RequestParam String item) {
         shoppingListService.putUnChecked(item);
-        return "template";
+        return "redirect:/shopping-list";
     }
 }
