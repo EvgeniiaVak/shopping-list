@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+    <div class="input">
+        <form th:action="@{/shopping-list/unchecked}" method="post">
+            <p>Input text</p>
+            <input type="text" name="item" />
+        </form>
+    </div>
+    <div class="unchecked-list">
+        <table>
+            <tr th:each="entity : ${shoppingListModel.unchecked}">
+                <td th:utext="${entity}" th:action="@{/shopping-list/checked}" th:value="${entity}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="checked-list">
+        <table>
+            <tr th:each="entity : ${shoppingListModel.checked}">
+                <td th:utext="${entity}" th:action="@{/shopping-list/unchecked}" th:value="${entity}"></td>
+            </tr>
+        </table>
+    </div>
 
 </body>
 </html>

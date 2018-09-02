@@ -2,10 +2,11 @@ package com.github.evgeniiavak.shoppinglist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("shopping.list")
+@RequestMapping("shopping-list")
 public class ShoppingListController {
 
     private final ShoppingListService shoppingListService;
@@ -16,17 +17,20 @@ public class ShoppingListController {
     }
 
     @GetMapping
-    public ResponseEntity<ShoppingListModel> get() {
-        return ResponseEntity.ok(shoppingListService.getShoppingList());
+    public String get (Model model) {
+        model.addAttribute("shoppingListModel", shoppingListService.getShoppingList());
+        return "template";
     }
 
     @PostMapping("checked")
-    public ResponseEntity<ShoppingListModel> postChecked(@RequestParam String item) {
-        return ResponseEntity.ok(shoppingListService.putChecked(item));
+    public String postChecked(@RequestParam String item) {
+        shoppingListService.putChecked(item);
+        return "template";
     }
 
     @PostMapping("unchecked")
-    public ResponseEntity<ShoppingListModel> postUnchecked(@RequestParam String item) {
-        return ResponseEntity.ok(shoppingListService.putUnChecked(item));
+    public String postUnchecked(@RequestParam String item) {
+        shoppingListService.putUnChecked(item);
+        return "template";
     }
 }
