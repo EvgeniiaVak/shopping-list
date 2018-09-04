@@ -39,6 +39,8 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     @Override
     public ShoppingListModel putChecked(String item) {
         checked.add(item, System.currentTimeMillis());
+        // TODO: 9/4/18 remove the exact item
+        unchecked.remove(1, item);
 
         int size = Math.toIntExact(Optional.ofNullable(checked.zCard()).orElse(0L));
 
