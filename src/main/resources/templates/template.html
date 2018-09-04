@@ -4,29 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css" th:href="@{/style.css}" type="text/css">
 </head>
 <body>
+    <div class="content rounded border">
+        <div class="input">
+            <form th:action="@{/shopping-list/unchecked}" method="post">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Input item</span>
+                    </div>
+                    <input type="text" name="item" class="form-control" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Add to Unchecked</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="unchecked-list margin-top-bottom">
+            <h3>Unchecked list</h3>
+            <form th:action="@{/shopping-list/checked}" method="post">
+                <table class="table table-striped margin-top-bottom">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Move to Checked-list</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="entity : ${shoppingListModel.unchecked}">
+                            <td th:utext="${entity}"></td>
+                            <td>
+                                <button class="btn btn-success" type="submit" name="item" th:action="@{/shopping-list/checked}" th:value="${entity}">Move</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <hl></hl>
+        <div class="checked-list">
+            <h3>Сhecked list</h3>
+            <form th:action="@{/shopping-list/unchecked}" method="post">
+                <table class="table table-striped margin-top-bottom">
+                    <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Move to Unchecked-list</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="entity : ${shoppingListModel.checked}">
+                        <td th:utext="${entity}"></td>
+                        <td>
+                            <button class="btn btn-success" type="submit" name="item" th:action="@{/shopping-list/unchecked}" th:value="${entity}">Move</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
 
-    <div class="input">
-        <form th:action="@{/shopping-list/unchecked}" method="post">
-            <p>Input text</p>
-            <input type="text" name="item" />
-        </form>
-    </div>
-    <div class="unchecked-list">
-        <table>
-            <tr th:each="entity : ${shoppingListModel.unchecked}">
-                <td th:utext="${entity}" th:action="@{/shopping-list/checked}" th:value="${entity}"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="checked-list">
-        <table>
-            <tr th:each="entity : ${shoppingListModel.checked}">
-                <td th:utext="${entity}" th:action="@{/shopping-list/unchecked}" th:value="${entity}"></td>
-            </tr>
-        </table>
-    </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
